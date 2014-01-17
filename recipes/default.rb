@@ -48,19 +48,20 @@ registration_key_path = File.join(install_dir, 'wincmd.key')
 local_install_file = if !totalcmd_installed then cached_file(source, checksum) end
 
 # Create the temporary directory for extracted installation files
-directory install_temp_dir do
+directory :temp_dir_creation do
+  path install_temp_dir
   action :create
   not_if { totalcmd_installed }
 end
 
 # Extract the installation exe
-execute 'extract_install_exe' do
+execute :extract_install_exe do
   command "#{seven_zip_exe} x -y -o\"#{install_temp_dir}\" \"#{local_install_file}\""
   not_if { totalcmd_installed }
 end
 
 # Modify the installation INF file and install
-powershell_script "Modify INF file and install" do
+powershell_script :modify_inf_and_install do
   cwd install_temp_dir
   code <<-EOH
   (Get-Content #{install_name}.INF) | ForEach-Object { $_ -replace "^auto=0$", "auto=1" -replace "^Dir=c:\\totalcmd$", "Dir=#{install_dir}" } | Set-Content #{install_name}.INF
@@ -70,14 +71,14 @@ powershell_script "Modify INF file and install" do
 end
 
 # Remove the temporary directory
-directory install_temp_dir do
+directory :temp_dir_removal do
   action :delete
   recursive true
   not_if { totalcmd_installed }
 end
 
 # Use the registration key, if available
-remote_file "wincmd.key" do
+remote_file :wincmd_key do
   path registration_key_path
   source registration_key
   action :create_if_missing
