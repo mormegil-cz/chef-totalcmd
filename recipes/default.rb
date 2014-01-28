@@ -18,6 +18,9 @@
 # limitations under the License.
 #
 
+# Ensure 7-zip is installed
+include_recipe '7-zip::default'
+
 source = node['totalcmd']['source']
 checksum = node['totalcmd']['checksum']
 bitness = node['totalcmd']['bitness']
@@ -48,7 +51,7 @@ registration_key_path = File.join(install_dir, 'wincmd.key')
 local_install_file = if !totalcmd_installed then cached_file(source, checksum) end
 
 # Create the temporary directory for extracted installation files
-directory :temp_dir_creation do
+directory 'temp_dir_creation' do
   path install_temp_dir
   action :create
   not_if { totalcmd_installed }
@@ -71,14 +74,14 @@ powershell_script :modify_inf_and_install do
 end
 
 # Remove the temporary directory
-directory :temp_dir_removal do
+directory 'temp_dir_removal' do
   action :delete
   recursive true
   not_if { totalcmd_installed }
 end
 
 # Use the registration key, if available
-remote_file :wincmd_key do
+remote_file registration_key_path do
   path registration_key_path
   source registration_key
   action :create_if_missing
