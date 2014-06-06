@@ -13,11 +13,11 @@ Set the `node['totalcmd']['source']` attribute to the location of the Total Comm
 # Attributes
 
 ## Required
-* `node['totalcmd']['source']` - Required, location of the Total Commander installation file, e.g. `\\server\install\tcm801x32_64.exe`.
+* `node['totalcmd']['source']` - Required, location of the Total Commander installation file, e.g. `\\server\install\tcm851ax32_64.exe`.
 
 ## Optional
 * `node['totalcmd']['bitness']` - Which Total Commander version should be installed? `:i386` for 32-bit, `:x86_64` for 64-bit, or `:auto` for autodetection (32-bit on 32-bit Windows, 64-bit on 64-bit Windows). Defaults to `:auto`.
-* `node['totalcmd']['checksum']` - SHA256 checksum of the installation file. Defaults to the checksum of the official `tcm801x32_64.exe`.
+* `node['totalcmd']['checksum']` - SHA256 checksum of the installation file. Defaults to the checksum of the official `tcm851ax32_64.exe`.
 * `node['totalcmd']['install_dir']` - The directory where Total Commander should be installed to. Defaults to `c:\totalcmd`.
 * `node['totalcmd']['registration_key']` - If set, should contain a fully qualified URL pointing to the registration key file for Total Commander, e.g. `http://www.example.com/wincmd.key`.
 
