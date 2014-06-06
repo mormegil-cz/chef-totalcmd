@@ -19,10 +19,10 @@
 #
 
 # You must set this to the location of the installation exe
-# default['totalcmd']['source'] = "...tcm801x32_64.exe"
+# default['totalcmd']['source'] = "...tcm851ax32_64.exe"
 
 # SHA-256 checksum of the above installation exe file
-default['totalcmd']['checksum'] = "2f41d77dcc6cb87b2659101f433d2b966996ba57643fcb20c947e753665c067f"
+default['totalcmd']['checksum'] = "058fcaa21e0c974e514b3dfc7794e0567d40c8573eb59f9d5a326ac632d20792"
 
 # One of :auto, :i386, :x86_64
 default['totalcmd']['bitness'] = :auto
